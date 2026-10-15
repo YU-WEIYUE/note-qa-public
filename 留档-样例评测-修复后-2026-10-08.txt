@@ -1,0 +1,39 @@
+2026-10-08 | 语料 corpus/sample.md | SHA256 8B6F13B66C52BF81A3532BB5A61937D2950E4D058A3D34D04C91E9C27CF400F0
+COMMAND: python src/w3_eval.py --corpus corpus/sample.md --eval-set src/eval_set.sample.json
+[库] sample.md -> 7 块 | 向量模型=shaw/dmeta-embedding-zh MAX_CHARS=300 | 建索引 0.5s
+[题] 8 题（有答案 6 / 库里没有 2）
+
+[检索层] 正确块排名 / recall@k
+  S01  [OK    ] top1=0.6909 排名=1 命中@1=True  gold块=手冲参数
+  S02  [OK    ] top1=0.7621 排名=1 命中@1=True  gold块=手冲参数
+  S03  [OK    ] top1=0.8537 排名=1 命中@1=True  gold块=冷萃
+  S04  [OK    ] top1=0.7658 排名=1 命中@1=True  gold块=意式浓缩
+  S05  [OK    ] top1=0.6680 排名=1 命中@1=True  gold块=豆子保存
+  S06  [OK    ] top1=0.7778 排名=1 命中@1=True  gold块=常见故障
+  S07  [OK    ] top1=0.5968 排名=- 命中@1=False  gold块=-
+  S08  [OK    ] top1=0.6282 排名=- 命中@1=False  gold块=-
+
+[检索层小结]
+  recall@1（有答案 6 题）= 6/6 (100.0%, 95%CI 61.0%~100.0%)
+  recall@3（有答案 6 题）= 6/6 (100.0%, 95%CI 61.0%~100.0%)
+  recall@5（有答案 6 题）= 6/6 (100.0%, 95%CI 61.0%~100.0%)
+  判别力余量：有答案题 top1 均值 0.7530 - 库外题 top1 均值 0.6125 = +0.1406
+
+[生成层] 模型=qwen14b:latest temperature=0，喂 top-3
+  S01  标记=[] 引用命中gold=False | 浅烘 92°C，深烘 88°C。
+  S02  标记=[] 引用命中gold=False | 1:15
+  S03  标记=[] 引用命中gold=False | 16
+  S04  标记=[] 引用命中gold=False | 泵压 9 bar。
+  S05  标记=[1] 引用命中gold=True | 开封后两周内喝完[Source 1]
+  S06  标记=[] 引用命中gold=False | 咖啡发酸的原因是萃取不足，可以尝试把研磨调细或者延长注水时间。
+  S07  标记=[] 引用命中gold=False | 浅烘 92°C，深烘 88°C。
+  S08  标记=[] 引用命中gold=False | 笔记中没有相关信息
+
+[生成层小结]
+  成功生成 8/8 题；失败 0 题 []；以下比例只以成功生成的题为分母
+  引用准确率（有答案题成功生成 6/6 题）= 1/6 (16.7%, 95%CI 3.0%~56.4%)；其中至少引了一处 = 1/6 (16.7%, 95%CI 3.0%~56.4%)
+  库里没有的题 2 题，说出『笔记中没有相关信息』= 1/2 (50.0%, 95%CI 9.5%~90.5%)
+  标记与 sources 字段不一致 = 6 题 ['S01', 'S02', 'S03', 'S04', 'S06', 'S07']
+
+[JSON] {"corpus": "sample.md", "chunks": 7, "embed_model": "shaw/dmeta-embedding-zh", "gen_model": "qwen14b:latest", "max_chars": 300, "n_answerable": 6, "n_unanswerable": 2, "recall@1": 6, "recall@3": 6, "recall@5": 6, "top1_mean_answerable": 0.753, "top1_mean_unanswerable": 0.6125, "citation_accuracy": 1, "refusal": 1, "n_generated_answerable": 6, "n_generated_unanswerable": 2, "n_error": 0, "error_ids": [], "n_no_gold": 0, "no_gold": [], "marker_field_mismatch": ["S01", "S02", "S03", "S04", "S06", "S07"], "seconds": 27.7}
+EXIT_CODE=0

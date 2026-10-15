@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+venv/
+.env
+.ipynb_checkpoints/
+
+# 备份与本机留档不入库（公开版只收净化后的样例产物）
+*.bak-*
+*.bak
+留档-本机*
+运行留档-*
+交付前核对-*
+探针-*
+work/

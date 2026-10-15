@@ -1,0 +1,4 @@
+2026-10-08 | 原始命令输出（UTF-8）
+COMMAND 1: python src/note_qa.py corpus/sample.md （修订前脚本备份）
+{"answer": "笔记中没有相关信息", "sources": []}
+EXIT_CODE_1=0

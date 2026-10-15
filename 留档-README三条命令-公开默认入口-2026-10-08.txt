@@ -1,0 +1,64 @@
+2026-10-08 | 原始命令输出（UTF-8）
+COMMAND 1: python src/note_qa.py
+{"answer": "浅烘 92°C，深烘 88°C。", "sources": ["sample.md"]}
+EXIT_CODE_1=0
+COMMAND 2: python src/w2_retrieve.py
+[库] sample.md -> 7 块（56~106 字） | 前缀=False MAX_CHARS=300 模型=shaw/dmeta-embedding-zh
+[判别力] 块-块平均相似度 = 0.5135（0.4020~0.5951）
+
+[问] 手冲咖啡用什么水温？
+  全体得分: 0.691 0.548 0.543 0.494 0.492 0.472 0.383
+  top1  0.6909  【手冲参数】 - 水温：浅烘 92°C，深烘 88°C。 - 粉水比：1:15，也就是 15 ...
+  top2  0.5482  【器具】 - 滤杯：Hario V60 02 号。 - 磨豆机：手摇，锥形刀盘。 - 手冲...
+  top3  0.5431  【常见故障】 - 咖啡发苦：水温偏高，或者萃取时间过长。 - 咖啡发酸：萃取不足，把研磨调细或...
+
+[问] 冷萃需要冷藏多久？
+  全体得分: 0.850 0.534 0.495 0.472 0.436 0.435 0.378
+  top1  0.8496  【冷萃】 - 粉水比 1:8，冷藏静置 16 小时。 - 滤出后冷藏可以放 3 天。 - ...
+  top2  0.5343  【豆子保存】 - 避光、密封、常温，不要放进冰箱冷藏室。 - 开封后两周内喝完，第 4 到第 ...
+  top3  0.4951  【意式浓缩】 - 粉量 18 g，萃取 36 g 咖啡液，用时 25 到 30 秒。 - 泵压...
+
+[问] 泡茶水温是多少？
+  全体得分: 0.598 0.493 0.460 0.457 0.438 0.390 0.345
+  top1  0.5985  【手冲参数】 - 水温：浅烘 92°C，深烘 88°C。 - 粉水比：1:15，也就是 15 ...
+  top2  0.4928  【冷萃】 - 粉水比 1:8，冷藏静置 16 小时。 - 滤出后冷藏可以放 3 天。 - ...
+  top3  0.4604  【器具】 - 滤杯：Hario V60 02 号。 - 磨豆机：手摇，锥形刀盘。 - 手冲...
+EXIT_CODE_2=0
+COMMAND 3: python src/w3_eval.py
+[库] sample.md -> 7 块 | 向量模型=shaw/dmeta-embedding-zh MAX_CHARS=300 | 建索引 0.3s
+[题] 8 题（有答案 6 / 库里没有 2）
+
+[检索层] 正确块排名 / recall@k
+  S01  [OK    ] top1=0.6909 排名=1 命中@1=True  gold块=手冲参数
+  S02  [OK    ] top1=0.7621 排名=1 命中@1=True  gold块=手冲参数
+  S03  [OK    ] top1=0.8537 排名=1 命中@1=True  gold块=冷萃
+  S04  [OK    ] top1=0.7658 排名=1 命中@1=True  gold块=意式浓缩
+  S05  [OK    ] top1=0.6680 排名=1 命中@1=True  gold块=豆子保存
+  S06  [OK    ] top1=0.7778 排名=1 命中@1=True  gold块=常见故障
+  S07  [OK    ] top1=0.5968 排名=- 命中@1=False  gold块=-
+  S08  [OK    ] top1=0.6282 排名=- 命中@1=False  gold块=-
+
+[检索层小结]
+  recall@1（有答案 6 题）= 6/6 (100.0%, 95%CI 61.0%~100.0%)
+  recall@3（有答案 6 题）= 6/6 (100.0%, 95%CI 61.0%~100.0%)
+  recall@5（有答案 6 题）= 6/6 (100.0%, 95%CI 61.0%~100.0%)
+  判别力余量：有答案题 top1 均值 0.7530 - 库外题 top1 均值 0.6125 = +0.1406
+
+[生成层] 模型=qwen14b:latest temperature=0，喂 top-3
+  S01  标记=[] 引用命中gold=False | 浅烘 92°C，深烘 88°C。
+  S02  标记=[] 引用命中gold=False | 1:15
+  S03  标记=[] 引用命中gold=False | 16
+  S04  标记=[] 引用命中gold=False | 泵压 9 bar。
+  S05  标记=[1] 引用命中gold=True | 开封后两周内喝完[Source 1]
+  S06  标记=[] 引用命中gold=False | 咖啡发酸的原因是萃取不足，可以尝试把研磨调细或者延长注水时间。
+  S07  标记=[] 引用命中gold=False | 浅烘 92°C，深烘 88°C。
+  S08  标记=[] 引用命中gold=False | 笔记中没有相关信息
+
+[生成层小结]
+  成功生成 8/8 题；失败 0 题 []；以下比例只以成功生成的题为分母
+  引用准确率（有答案题成功生成 6/6 题）= 1/6 (16.7%, 95%CI 3.0%~56.4%)；其中至少引了一处 = 1/6 (16.7%, 95%CI 3.0%~56.4%)
+  库里没有的题 2 题，说出『笔记中没有相关信息』= 1/2 (50.0%, 95%CI 9.5%~90.5%)
+  标记与 sources 字段不一致 = 6 题 ['S01', 'S02', 'S03', 'S04', 'S06', 'S07']
+
+[JSON] {"corpus": "sample.md", "chunks": 7, "embed_model": "shaw/dmeta-embedding-zh", "gen_model": "qwen14b:latest", "max_chars": 300, "n_answerable": 6, "n_unanswerable": 2, "recall@1": 6, "recall@3": 6, "recall@5": 6, "top1_mean_answerable": 0.753, "top1_mean_unanswerable": 0.6125, "citation_accuracy": 1, "refusal": 1, "n_generated_answerable": 6, "n_generated_unanswerable": 2, "n_error": 0, "error_ids": [], "n_no_gold": 0, "no_gold": [], "marker_field_mismatch": ["S01", "S02", "S03", "S04", "S06", "S07"], "seconds": 26.9}
+EXIT_CODE_3=0

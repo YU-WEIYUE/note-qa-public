@@ -1,0 +1,4 @@
+# 二选一：
+#  (a) 官方 SDK —— 下面这行留着
+#  (b) 零依赖 —— 删掉下面这行，脚本里用标准库 urllib 直接 POST http://localhost:11434/api/generate
+ollama>=0.4

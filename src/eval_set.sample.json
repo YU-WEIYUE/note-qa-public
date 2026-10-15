@@ -1,0 +1,75 @@
+{
+  "_about": "样例评测集（2026-10-05，W4）。资料库 = corpus\\sample.md（咖啡笔记，无隐私）。作用：让任何人拿到仓库就能跑出同一张表。",
+  "_rule": "answerable=true 的 gold_phrases 必须逐字出现在语料里、且落在同一块；answerable=false 的语料里必须完全没有答案。",
+  "_usage": "python src/w3_eval.py --corpus corpus/sample.md --eval-set src/eval_set.sample.json",
+  "questions": [
+    {
+      "id": "S01",
+      "question": "手冲咖啡用什么水温？",
+      "answerable": true,
+      "gold_phrases": [
+        "浅烘 92°C，深烘 88°C"
+      ],
+      "note": "手冲参数"
+    },
+    {
+      "id": "S02",
+      "question": "手冲的粉水比是多少？",
+      "answerable": true,
+      "gold_phrases": [
+        "1:15，也就是 15 g 粉配 225 g 水"
+      ],
+      "note": "手冲参数"
+    },
+    {
+      "id": "S03",
+      "question": "冷萃要冷藏静置多长时间？",
+      "answerable": true,
+      "gold_phrases": [
+        "冷藏静置 16 小时"
+      ],
+      "note": "冷萃"
+    },
+    {
+      "id": "S04",
+      "question": "意式浓缩的泵压是多少？",
+      "answerable": true,
+      "gold_phrases": [
+        "泵压 9 bar"
+      ],
+      "note": "意式浓缩"
+    },
+    {
+      "id": "S05",
+      "question": "咖啡豆开封后多久要喝完？",
+      "answerable": true,
+      "gold_phrases": [
+        "开封后两周内喝完"
+      ],
+      "note": "豆子保存"
+    },
+    {
+      "id": "S06",
+      "question": "冲出来的咖啡发酸是什么原因？",
+      "answerable": true,
+      "gold_phrases": [
+        "萃取不足，把研磨调细"
+      ],
+      "note": "常见故障"
+    },
+    {
+      "id": "S07",
+      "question": "泡茶的水温要多少度？",
+      "answerable": false,
+      "gold_phrases": [],
+      "note": "库外对照：语料只讲咖啡"
+    },
+    {
+      "id": "S08",
+      "question": "摩卡壶的粉水比是多少？",
+      "answerable": false,
+      "gold_phrases": [],
+      "note": "库外对照：语料没有摩卡壶"
+    }
+  ]
+}

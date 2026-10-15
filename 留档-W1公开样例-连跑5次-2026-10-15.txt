@@ -1,0 +1,19 @@
+命令: python src/note_qa.py   （默认语料 corpus/sample.md，问题=手冲咖啡用什么水温？）
+环境: Ollama 127.0.0.1:11434 | qwen14b:latest | Modelfile 未固定采样参数 => 服务端默认 temperature=0.8
+时间: 2026-10-15 23:54
+---
+[第 1 次]
+{"answer": "浅烘 92°C，深烘 88°C。", "sources": ["sample.md"]}
+exit=0
+[第 2 次]
+{"answer": "浅烘 92°C，深烘 88°C。", "sources": ["sample.md"]}
+exit=0
+[第 3 次]
+{"answer": "浅烘 92°C，深烘 88°C。", "sources": ["sample.md"]}
+exit=0
+[第 4 次]
+{"answer": "浅烘 92°C，深烘 88°C。", "sources": ["sample.md"]}
+exit=0
+[第 5 次]
+{"answer": "浅烘 92°C，深烘 88°C。", "sources": ["sample.md"]}
+exit=0
